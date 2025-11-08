@@ -1,6 +1,3 @@
-Absolutely! 🙌
-Here’s a clean, professional **README.md** you can include in your **ShopEase** project — perfect for GitHub or portfolio use.
-It’s written in Markdown format and styled to look great when displayed on GitHub.
 
 ---
 
@@ -108,7 +105,7 @@ ShopEase/
 
 **Denis Murithi**
 💼 *Front-End Developer | Web Enthusiast*
-📧 [Add your email here]
-🌐 [Add your portfolio or GitHub link here]
+📧 [dexdenis3@gmail.com]
+🌐 [(https://github.com/Denis-7242)]
 
 ---
