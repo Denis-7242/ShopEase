@@ -33,7 +33,7 @@ ShopEase/
 ├── script.js           # App logic (cart + localStorage)
 ├── products.json       # Mock product data
 │
-├── assets/             # Folder for product images/icons
+├── images/             # Folder for product images/icons
 │   ├── product1.jpg
 │   ├── product2.jpg
 │   └── ...
