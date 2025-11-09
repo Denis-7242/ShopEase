@@ -54,7 +54,7 @@ ShopEase/
 1. **Clone or Download** the repository
 ```bash
 git clone https://github.com/Denis-7242/ShopEase.git
-cd shopease
+cd shopEase
 ```
 
 2. **Open the file**
@@ -221,4 +221,4 @@ If you have any questions or need help, please open an issue on GitHub or contac
 
 ---
 
-**Made with ❤️  by Denis**
+**Made with ❤️ by Denis**
