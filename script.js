@@ -12,7 +12,7 @@ const productsData = {
         {
             id: 2,
             name: "Crossbody Bag",
-            price: 2500,
+            price: 2499,
             category: "Accessories",
             image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=600&fit=crop"
         },
