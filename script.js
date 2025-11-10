@@ -82,7 +82,7 @@ const productsData = {
         {
             id: 12,
             name: "Coaster Set",
-            price: 750,
+            price: 749,
             category: "Home Decor",
             image: "https://images.unsplash.com/photo-1615485500834-bc10199bc255?w=600&h=600&fit=crop"
         }
