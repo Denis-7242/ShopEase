@@ -68,14 +68,14 @@ const productsData = {
         {
             id: 10,
             name: "Dinner Plate Set",
-            price: 2200,
+            price: 2199,
             category: "Kitchenware",
             image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&h=600&fit=crop"
         },
         {
             id: 11,
             name: "Leather Journal",
-            price: 1300,
+            price: 1399,
             category: "Accessories",
             image: "https://images.unsplash.com/photo-1544816155-12df9643f363?w=600&h=600&fit=crop"
         },
