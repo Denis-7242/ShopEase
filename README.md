@@ -1,4 +1,3 @@
-
 # ShopEase - Mini E-Commerce Product Gallery 🛍️
 
 A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, and JavaScript. Features a clean interface, shopping cart functionality, and persistent data storage.
@@ -8,6 +7,7 @@ A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, an
 ## 🌟 Features
 
 ### Core Functionality
+
 - ✅ **Product Gallery** - Browse 12 curated products with high-quality images
 - ✅ **Smart Cart System** - Add items to cart with automatic quantity management
 - ✅ **Real-time Price Updates** - Dynamic total calculation in Kenyan Shillings (KSh)
@@ -15,6 +15,7 @@ A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, an
 - ✅ **Remove & Adjust** - Full cart management with quantity controls
 
 ### Enhanced Features
+
 - 🔍 **Live Search** - Filter products by name in real-time
 - 🏷️ **Category Filters** - Browse by Home Decor, Accessories, Kitchenware, or Home Textiles
 - 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
@@ -45,18 +46,21 @@ ShopEase/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - A modern web browser (Chrome, Firefox, Safari, Edge)
 - No server or build tools required!
 
 ### Installation
 
 1. **Clone or Download** the repository
+
 ```bash
 git clone https://github.com/Denis-7242/ShopEase.git
 cd shopEase
 ```
 
 2. **Open the file**
+
 ```bash
 # Simply open index.html in your browser
 # On Mac/Linux:
@@ -73,12 +77,14 @@ That's it! No npm install, no build process needed. 🎉
 ## 💻 Usage
 
 ### Browsing Products
+
 - Scroll through the product grid to view all items
 - Use the **search bar** to find specific products
 - Click **category buttons** to filter by type
 - **Click on any product image or name** to view detailed information in a modal
 
 ### Product Details
+
 1. Click on a **product image** or **product name** to open the detail modal
 2. View the **full product description** and **feature list**
 3. Adjust the **quantity** using +/− buttons in the modal
@@ -86,6 +92,7 @@ That's it! No npm install, no build process needed. 🎉
 5. Close the modal by clicking the **X button** or **clicking outside** the modal
 
 ### Shopping Cart
+
 1. Click **"Add to Cart"** on any product
 2. Click the **"Cart"** button in the header to view your cart
 3. Use **+/−** buttons to adjust quantities
@@ -93,25 +100,27 @@ That's it! No npm install, no build process needed. 🎉
 5. Your cart persists even after closing the browser!
 
 ### Product Management
+
 ```javascript
 // Products are stored in the productsData object
 const productsData = {
-    products: [
-        {
-            id: 1,
-            name: "Product Name",
-            price: 1200,  // Price in KSh
-            category: "Category",
-            image: "image-url"
-        }
-        // ... more products
-    ]
+  products: [
+    {
+      id: 1,
+      name: "Product Name",
+      price: 1200, // Price in KSh
+      category: "Category",
+      image: "image-url",
+    },
+    // ... more products
+  ],
 };
 ```
 
 ## 🛠️ Customization
 
 ### Adding New Products
+
 Edit the `productsData` object in the JavaScript section:
 
 ```javascript
@@ -133,6 +142,7 @@ Edit the `productsData` object in the JavaScript section:
 ```
 
 ### Changing Colors
+
 Update the CSS variables for quick theme changes:
 
 ```css
@@ -150,6 +160,7 @@ background-color: #e74c3c;
 ```
 
 ### Adding Categories
+
 New categories are automatically detected and added to the filter buttons.
 
 ## 📱 Responsive Design
@@ -160,29 +171,32 @@ New categories are automatically detected and added to the filter buttons.
 
 ## 🎨 Color Palette
 
-| Color | Hex Code | Usage |
-|-------|----------|-------|
+| Color        | Hex Code  | Usage                         |
+| ------------ | --------- | ----------------------------- |
 | Primary Blue | `#3498db` | Buttons, links, active states |
-| Dark Grey | `#2c3e50` | Header background |
-| Green | `#27ae60` | Prices, checkout button |
-| Red | `#e74c3c` | Cart badge, alerts |
-| Light Grey | `#f8f9fa` | Page background |
+| Dark Grey    | `#2c3e50` | Header background             |
+| Green        | `#27ae60` | Prices, checkout button       |
+| Red          | `#e74c3c` | Cart badge, alerts            |
+| Light Grey   | `#f8f9fa` | Page background               |
 
 ## 🔧 Technical Details
 
 ### Technologies Used
+
 - **HTML5** - Semantic markup
 - **CSS3** - Grid, Flexbox, animations, gradients
 - **JavaScript (ES6+)** - Cart logic, DOM manipulation
 - **LocalStorage API** - Data persistence
 
 ### Browser Support
+
 - Chrome 90+
 - Firefox 88+
 - Safari 14+
 - Edge 90+
 
 ### Performance
+
 - No external dependencies
 - Lightweight (~25KB total)
 - Fast initial load
@@ -213,6 +227,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👨‍💻 Author
 
 **Your Name**
+
 - GitHub: [@Denis-7242](https://github.com/Denis-7242)
 - Email: dexdenis3@gmail.com
 
