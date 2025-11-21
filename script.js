@@ -34,7 +34,7 @@
                     name: "Coffee Mug Set",
                     price: 950,
                     category: "Kitchenware",
-                    image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&h=600&fit=crop",
+                    image: "https://sc04.alicdn.com/kf/H94ad39153144428b94ef6e8f32ad6985i.jpg",
                     description: "Set of 4 artisan stoneware coffee mugs with unique glazed finish. Microwave and dishwasher safe for everyday convenience.",
                     features: ["Set of 4 mugs", "Stoneware material", "Microwave safe", "Dishwasher safe", "12oz capacity"]
                 },
@@ -43,7 +43,7 @@
                     name: "Canvas Tote Bag",
                     price: 800,
                     category: "Accessories",
-                    image: "https://images.unsplash.com/photo-1590393801165-08ec345a5e42?w=600&h=600&fit=crop",
+                    image: "https://www.purpink.co.ke/cdn/shop/collections/Handbags-n-Totes-Festive-Tile.jpg?v=1701336712",
                     description: "Durable canvas tote bag perfect for shopping, beach trips, or daily errands. Eco-friendly and reusable with reinforced handles.",
                     features: ["100% cotton canvas", "Reinforced handles", "Large capacity", "Eco-friendly", "Machine washable"]
                 },
@@ -52,7 +52,7 @@
                     name: "Bamboo Cutting Board",
                     price: 1100,
                     category: "Kitchenware",
-                    image: "https://images.unsplash.com/photo-1606410920828-4e387d0b5106?w=600&h=600&fit=crop",
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0sH9yvgk0F1Pg9oE6_m5EAC1JYrfQa342fg&s",
                     description: "Premium bamboo cutting board that's gentle on knives and naturally antimicrobial. Features a juice groove to catch liquids.",
                     features: ["Sustainable bamboo", "Antimicrobial", "Knife-friendly", "Juice groove", "Easy maintenance"]
                 },
@@ -79,7 +79,7 @@
                     name: "Storage Basket",
                     price: 1500,
                     category: "Home Decor",
-                    image: "https://images.unsplash.com/photo-1610206820992-c5aca265ba9c?w=600&h=600&fit=crop",
+                    image: "https://m.media-amazon.com/images/I/71nd5cgFxGL.jpg",
                     description: "Handwoven storage basket made from natural materials. Ideal for organizing toys, blankets, or magazines with rustic charm.",
                     features: ["Handwoven design", "Natural materials", "Durable construction", "Handles for easy carry", "Large capacity"]
                 },
@@ -106,7 +106,7 @@
                     name: "Coaster Set",
                     price: 750,
                     category: "Home Decor",
-                    image: "https://images.unsplash.com/photo-1615485500834-bc10199bc255?w=600&h=600&fit=crop",
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDrdFmC4C7FxnMxL5UQPluVd9_MQmYvmLC0Q&s",
                     description: "Set of 6 terrazzo coasters with cork backing. Protects surfaces while adding a decorative touch to your coffee table.",
                     features: ["Set of 6", "Terrazzo design", "Cork backing", "Heat resistant", "Easy to clean"]
                 }
