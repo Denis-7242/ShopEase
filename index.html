@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>ShopEase - Product Gallery</title>
+    <title>ShopEase - Product Gallery</title> 
 </head>
-
 <body>
+    <!-- Product Detail Modal -->
+    <div class="modal-overlay" id="productModal" onclick="closeModalOnOverlay(event)">
+        <div class="product-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 class="modal-title">Product Details</h2>
+                <button class="modal-close" onclick="closeProductModal()">&times;</button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
     <!-- Cart Overlay -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
@@ -45,7 +56,12 @@
 
         <!-- Filters -->
         <div class="filters-section">
-            <input type="text" class="search-bar" id="searchBar" placeholder="Search products...">
+            <input 
+                type="text" 
+                class="search-bar" 
+                id="searchBar" 
+                placeholder="Search products..."
+            >
             <div class="category-filters" id="categoryFilters">
                 <button class="category-btn active" data-category="all">All Products</button>
             </div>
@@ -56,5 +72,4 @@
     </div>
     <script src="script.js"></script>
 </body>
-
 </html>
