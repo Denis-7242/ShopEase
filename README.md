@@ -1,5 +1,4 @@
 
-
 # ShopEase - Mini E-Commerce Product Gallery 🛍️
 
 A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, and JavaScript. Features a clean interface, shopping cart functionality, and persistent data storage.
@@ -22,6 +21,8 @@ A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, an
 - 🎨 **Modern UI** - Vibrant color scheme with smooth animations
 - 🛒 **Cart Badge Counter** - Shows total items at a glance
 - 💫 **Hover Effects** - Interactive product cards with visual feedback
+- 🔍 **Product Detail Modal** - View detailed product information with descriptions and features
+- ➕ **Modal Quantity Control** - Add multiple items at once from the product modal
 
 ### 🗂️ Project Structure
 
@@ -40,8 +41,6 @@ ShopEase/
 │
 └── README.md           # Project documentation
 ```
-
----
 
 ## 🚀 Getting Started
 
@@ -77,6 +76,14 @@ That's it! No npm install, no build process needed. 🎉
 - Scroll through the product grid to view all items
 - Use the **search bar** to find specific products
 - Click **category buttons** to filter by type
+- **Click on any product image or name** to view detailed information in a modal
+
+### Product Details
+1. Click on a **product image** or **product name** to open the detail modal
+2. View the **full product description** and **feature list**
+3. Adjust the **quantity** using +/− buttons in the modal
+4. Click **"Add to Cart"** to add items
+5. Close the modal by clicking the **X button** or **clicking outside** the modal
 
 ### Shopping Cart
 1. Click **"Add to Cart"** on any product
@@ -113,7 +120,15 @@ Edit the `productsData` object in the JavaScript section:
     name: "New Product",
     price: 1500,  // Price in KSh
     category: "Accessories",  // Must match existing category
-    image: "https://your-image-url.com/image.jpg"
+    image: "https://your-image-url.com/image.jpg",
+    description: "Detailed product description for the modal",
+    features: [
+        "Feature 1",
+        "Feature 2",
+        "Feature 3",
+        "Feature 4",
+        "Feature 5"
+    ]
 }
 ```
 
@@ -179,7 +194,7 @@ New categories are automatically detected and added to the filter buttons.
 
 ## 📈 Future Enhancements
 
-- [ ] Add product detail modal
+- [x] ~~Add product detail modal~~
 - [ ] Implement product ratings/reviews
 - [ ] Add wishlist functionality
 - [ ] Multiple image galleries per product
@@ -188,6 +203,8 @@ New categories are automatically detected and added to the filter buttons.
 - [ ] Checkout process
 - [ ] Order history
 - [ ] User authentication
+- [ ] Product comparison feature
+- [ ] Recently viewed products
 
 ## 📄 License
 
