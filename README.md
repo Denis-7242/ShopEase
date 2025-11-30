@@ -47,7 +47,7 @@ ShopEase/
 
 ### Prerequisites
 
-- A modern web browser (Chrome, Firefox, Safari, Edge)
+- A modern web browser (Chrome, Firefox,Edge)
 - No server or build tools required!
 
 ### Installation
