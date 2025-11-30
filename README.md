@@ -36,10 +36,6 @@ ShopEase/
 ├── products.json       # Mock product data
 │
 ├── images/             # Folder for product images/icons
-│   ├── product1.jpg
-│   ├── product2.jpg
-│   └── ...
-│
 └── README.md           # Project documentation
 ```
 
