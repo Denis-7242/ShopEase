@@ -59,7 +59,7 @@ cd shopEase
 
 ```bash
 # Simply open index.html in your browser
-# On Mac/Linux:
+# On Mac/Linux/windows:
 open index.html
 
 # On Windows:
