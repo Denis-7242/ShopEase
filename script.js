@@ -242,7 +242,7 @@ function setupCategories() {
   });
 }
 
-// Filter by category
+// Filter by category 
 function filterByCategory(category) {
   currentCategory = category;
   document.querySelectorAll(".category-btn").forEach((btn) => {
@@ -251,7 +251,7 @@ function filterByCategory(category) {
   renderProducts();
 }
 
-// Setup event listeners
+// Setup event listeners 
 function setupEventListeners() {
   document.getElementById("searchBar").addEventListener("input", (e) => {
     searchQuery = e.target.value.toLowerCase();
