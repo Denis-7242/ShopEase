@@ -8,7 +8,7 @@ A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, an
 
 ### Core Functionality
 
-- ✅ **Product Gallery** - Browse 12 curated products with high-quality images
+- ✅ **Product Gallery** - Curated products with high-quality images
 - ✅ **Smart Cart System** - Add items to cart with automatic quantity management
 - ✅ **Real-time Price Updates** - Dynamic total calculation in Kenyan Shillings (KSh)
 - ✅ **LocalStorage Persistence** - Cart data survives page refreshes
