@@ -188,7 +188,6 @@ New categories are automatically detected and added to the filter buttons.
 
 - Chrome 90+
 - Firefox 88+
-- Safari 14+
 - Edge 90+
 
 ### Performance
