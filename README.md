@@ -16,7 +16,7 @@ A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, an
 
 ### Enhanced Features
 
-- 🔍 **Live Search** - Filter products by name in real-time
+- 🔍 **Live Search** - Filter products by name in real-time 
 - 🏷️ **Category Filters** - Browse by Home Decor, Accessories, Kitchenware, or Home Textiles
 - 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
 - 🎨 **Modern UI** - Vibrant color scheme with smooth animations
