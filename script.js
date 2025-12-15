@@ -17,6 +17,8 @@ const productsData = {
         "Easy to clean",
         "Modern design",
       ],
+      rating: 4.5,
+      reviewCount: 12,
     },
     {
       id: 2,
@@ -34,6 +36,8 @@ const productsData = {
         "Zippered closure",
         "Compact design",
       ],
+      rating: 4.8,
+      reviewCount: 24,
     },
     {
       id: 3,
@@ -51,6 +55,8 @@ const productsData = {
         "Lightweight",
         "Versatile use",
       ],
+      rating: 4.6,
+      reviewCount: 18,
     },
     {
       id: 4,
@@ -68,6 +74,8 @@ const productsData = {
         "Dishwasher safe",
         "12oz capacity",
       ],
+      rating: 4.3,
+      reviewCount: 31,
     },
     {
       id: 5,
@@ -85,6 +93,8 @@ const productsData = {
         "Eco-friendly",
         "Machine washable",
       ],
+      rating: 4.7,
+      reviewCount: 15,
     },
     {
       id: 6,
@@ -102,6 +112,8 @@ const productsData = {
         "Juice groove",
         "Easy maintenance",
       ],
+      rating: 4.9,
+      reviewCount: 27,
     },
     {
       id: 7,
@@ -119,6 +131,8 @@ const productsData = {
         "45cm x 45cm",
         "Easy to wash",
       ],
+      rating: 4.4,
+      reviewCount: 9,
     },
     {
       id: 8,
@@ -136,6 +150,8 @@ const productsData = {
         "UV resistant glaze",
         "Multiple sizes",
       ],
+      rating: 4.5,
+      reviewCount: 14,
     },
     {
       id: 9,
@@ -152,6 +168,8 @@ const productsData = {
         "Handles for easy carry",
         "Large capacity",
       ],
+      rating: 4.6,
+      reviewCount: 11,
     },
     {
       id: 10,
@@ -169,6 +187,8 @@ const productsData = {
         "Dishwasher safe",
         "Chip resistant",
       ],
+      rating: 4.7,
+      reviewCount: 22,
     },
     {
       id: 11,
@@ -186,6 +206,8 @@ const productsData = {
         "Elastic closure",
         "Acid-free paper",
       ],
+      rating: 4.8,
+      reviewCount: 19,
     },
     {
       id: 12,
@@ -203,6 +225,8 @@ const productsData = {
         "Heat resistant",
         "Easy to clean",
       ],
+      rating: 4.2,
+      reviewCount: 8,
     },
   ],
 };
@@ -212,10 +236,13 @@ let cart = [];
 let currentCategory = "all";
 let searchQuery = "";
 let modalQuantity = 1;
+let reviews = {};
+let selectedRating = 0;
 
 // Initialize
 function init() {
   loadCart();
+  loadReviews();
   loadProducts();
   setupCategories();
   setupEventListeners();
@@ -242,7 +269,7 @@ function setupCategories() {
   });
 }
 
-// Filter by category 
+// Filter by category
 function filterByCategory(category) {
   currentCategory = category;
   document.querySelectorAll(".category-btn").forEach((btn) => {
@@ -251,7 +278,7 @@ function filterByCategory(category) {
   renderProducts();
 }
 
-// Setup event listeners 
+// Setup event listeners
 function setupEventListeners() {
   document.getElementById("searchBar").addEventListener("input", (e) => {
     searchQuery = e.target.value.toLowerCase();
@@ -262,6 +289,25 @@ function setupEventListeners() {
 // Format currency
 function formatPrice(price) {
   return `KSh ${price.toLocaleString()}`;
+}
+
+// Render star rating
+function renderStars(rating, className = "star") {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+  let stars = "";
+
+  for (let i = 0; i < fullStars; i++) {
+    stars += `<span class="${className}">★</span>`;
+  }
+  if (hasHalfStar) {
+    stars += `<span class="${className}">★</span>`;
+  }
+  const emptyStars = 5 - Math.ceil(rating);
+  for (let i = 0; i < emptyStars; i++) {
+    stars += `<span class="${className} empty">★</span>`;
+  }
+  return stars;
 }
 
 // Render products
@@ -296,6 +342,14 @@ function renderProducts() {
                         <h3 class="product-name" onclick="openProductModal(${
                           product.id
                         })" style="cursor: pointer;">${product.name}</h3>
+                        <div class="product-rating">
+                            <div class="stars">${renderStars(
+                              product.rating
+                            )}</div>
+                            <span class="rating-count">(${
+                              product.reviewCount
+                            })</span>
+                        </div>
                         <div class="product-price">${formatPrice(
                           product.price
                         )}</div>
@@ -434,12 +488,133 @@ function loadCart() {
   }
 }
 
+// Reviews Functions
+function loadReviews() {
+  const saved = localStorage.getItem("shopease_reviews");
+  if (saved) {
+    reviews = JSON.parse(saved);
+  }
+}
+
+function saveReviews() {
+  localStorage.setItem("shopease_reviews", JSON.stringify(reviews));
+}
+
+function calculateAverageRating(productId) {
+  const product = productsData.products.find((p) => p.id === productId);
+  const productReviews = reviews[productId] || [];
+
+  if (productReviews.length === 0) {
+    return product.rating;
+  }
+
+  const reviewRatings = productReviews.reduce((sum, r) => sum + r.rating, 0);
+  const totalRating = product.rating * product.reviewCount + reviewRatings;
+  const totalCount = product.reviewCount + productReviews.length;
+
+  return totalRating / totalCount;
+}
+
+function renderReviews(productId) {
+  const productReviews = reviews[productId] || [];
+
+  if (productReviews.length === 0) {
+    return '<div class="no-reviews">No customer reviews yet. Be the first to review!</div>';
+  }
+
+  return productReviews
+    .map(
+      (review) => `
+                <div class="review-item">
+                    <div class="review-header">
+                        <span class="reviewer-name">${review.name}</span>
+                        <span class="review-date">${review.date}</span>
+                    </div>
+                    <div class="review-stars">${renderStars(
+                      review.rating,
+                      "star"
+                    )}</div>
+                    <p class="review-text">${review.text}</p>
+                </div>
+            `
+    )
+    .join("");
+}
+
+function toggleReviewForm(productId) {
+  const form = document.getElementById(`reviewForm-${productId}`);
+  form.classList.toggle("active");
+  selectedRating = 0;
+  updateStarRatingInput();
+}
+
+function setRating(rating) {
+  selectedRating = rating;
+  updateStarRatingInput();
+}
+
+function updateStarRatingInput() {
+  const stars = document.querySelectorAll(".star-input");
+  stars.forEach((star, index) => {
+    if (index < selectedRating) {
+      star.classList.add("active");
+    } else {
+      star.classList.remove("active");
+    }
+  });
+}
+
+function submitReview(productId) {
+  const name = document
+    .getElementById(`reviewerName-${productId}`)
+    .value.trim();
+  const text = document
+    .getElementById(`reviewText-${productId}`)
+    .value.trim();
+
+  if (!name || !text) {
+    alert("Please fill in all fields");
+    return;
+  }
+
+  if (selectedRating === 0) {
+    alert("Please select a rating");
+    return;
+  }
+
+  if (!reviews[productId]) {
+    reviews[productId] = [];
+  }
+
+  const review = {
+    name: name,
+    rating: selectedRating,
+    text: text,
+    date: new Date().toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }),
+  };
+
+  reviews[productId].unshift(review);
+  saveReviews();
+
+  // Refresh the modal content
+  openProductModal(productId);
+}
+
 // Product Modal Functions
 function openProductModal(productId) {
   const product = productsData.products.find((p) => p.id === productId);
   if (!product) return;
 
   modalQuantity = 1;
+  selectedRating = 0;
+
+  const productReviews = reviews[productId] || [];
+  const avgRating = calculateAverageRating(productId);
+  const totalReviews = product.reviewCount + productReviews.length;
 
   const modalContent = document.getElementById("modalContent");
   modalContent.innerHTML = `
@@ -451,6 +626,16 @@ function openProductModal(productId) {
                 <div class="modal-info-section">
                     <div class="modal-category">${product.category}</div>
                     <h2 class="modal-product-name">${product.name}</h2>
+                    <div class="modal-rating">
+                        <div class="modal-stars">${renderStars(
+                          avgRating,
+                          "star"
+                        )}</div>
+                        <span class="modal-rating-text">${avgRating.toFixed(
+                          1
+                        )}</span>
+                        <span class="modal-rating-count">(${totalReviews} reviews)</span>
+                    </div>
                     <div class="modal-price">${formatPrice(product.price)}</div>
                     <p class="modal-description">${product.description}</p>
                     <div class="modal-features">
@@ -474,6 +659,53 @@ function openProductModal(productId) {
                     })">
                         Add to Cart
                     </button>
+                    
+                    <div class="reviews-section">
+                        <div class="reviews-header">
+                            <h3>Customer Reviews</h3>
+                            <button class="add-review-btn" onclick="toggleReviewForm(${
+                              product.id
+                            })">Write a Review</button>
+                        </div>
+                        
+                        <div class="review-form" id="reviewForm-${product.id}">
+                            <div class="form-group">
+                                <label>Your Rating</label>
+                                <div class="star-rating-input" id="starRatingInput">
+                                    ${[1, 2, 3, 4, 5]
+                                      .map(
+                                        (i) =>
+                                          `<span class="star-input" onclick="setRating(${i})">★</span>`
+                                      )
+                                      .join("")}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" id="reviewerName-${
+                                  product.id
+                                }" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Your Review</label>
+                                <textarea id="reviewText-${
+                                  product.id
+                                }" placeholder="Share your experience with this product" required></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button class="submit-review-btn" onclick="submitReview(${
+                                  product.id
+                                })">Submit Review</button>
+                                <button class="cancel-review-btn" onclick="toggleReviewForm(${
+                                  product.id
+                                })">Cancel</button>
+                            </div>
+                        </div>
+                        
+                        <div id="reviewsList-${product.id}">
+                            ${renderReviews(productId)}
+                        </div>
+                    </div>
                 </div>
             `;
 
@@ -485,6 +717,7 @@ function closeProductModal() {
   document.getElementById("productModal").classList.remove("active");
   document.body.style.overflow = "auto";
   modalQuantity = 1;
+  selectedRating = 0;
 }
 
 function closeModalOnOverlay(event) {
