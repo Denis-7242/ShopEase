@@ -7,7 +7,7 @@
     <title>ShopEase - Product Gallery</title>
   </head>
   <body>
-    <!-- Product Detail Modal --> 
+    <!-- Product Detail Modal -->
     <div
       class="modal-overlay"
       id="productModal"
@@ -22,6 +22,39 @@
         </div>
         <div class="modal-content" id="modalContent">
           <!-- Content will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Wishlist Overlay -->
+    <div
+      class="wishlist-overlay"
+      id="wishlistOverlay"
+      onclick="toggleWishlist()"
+    ></div>
+
+    <!-- Wishlist Section -->
+    <div class="wishlist-section" id="wishlistSection">
+      <div class="wishlist-header">
+        <h2>❤️ My Wishlist</h2>
+        <button class="close-wishlist" onclick="toggleWishlist()">
+          &times;
+        </button>
+      </div>
+      <div class="wishlist-items-container" id="wishlistItems">
+        <div class="empty-wishlist">
+          <div class="empty-wishlist-icon">💝</div>
+          <div class="empty-wishlist-text">Your wishlist is empty</div>
+        </div>
+      </div>
+      <div class="wishlist-footer" id="wishlistFooter" style="display: none">
+        <div class="wishlist-actions">
+          <button class="add-all-to-cart-btn" onclick="addAllToCart()">
+            Add All to Cart
+          </button>
+          <button class="clear-wishlist-btn" onclick="clearWishlist()">
+            Clear Wishlist
+          </button>
         </div>
       </div>
     </div>
@@ -54,10 +87,16 @@
       <!-- Header -->
       <header>
         <h1 class="logo">SHOP<span class="logo-accent">EASE</span></h1>
-        <button class="cart-button" onclick="toggleCart()">
-          Cart
-          <span class="cart-badge" id="cartBadge">0</span>
-        </button>
+        <div class="header-actions">
+          <button class="wishlist-button" onclick="toggleWishlist()">
+            ❤️ Wishlist
+            <span class="wishlist-badge" id="wishlistBadge">0</span>
+          </button>
+          <button class="cart-button" onclick="toggleCart()">
+            Cart
+            <span class="cart-badge" id="cartBadge">0</span>
+          </button>
+        </div>
       </header>
 
       <!-- Filters -->
@@ -78,6 +117,7 @@
       <!-- Products Grid -->
       <div class="products-grid" id="productsGrid"></div>
     </div>
+
     <script src="script.js"></script>
   </body>
 </html>
