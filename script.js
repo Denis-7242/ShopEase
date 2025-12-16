@@ -233,6 +233,7 @@ const productsData = {
 
 // State
 let cart = [];
+let wishlist = [];
 let currentCategory = "all";
 let searchQuery = "";
 let modalQuantity = 1;
@@ -242,11 +243,13 @@ let selectedRating = 0;
 // Initialize
 function init() {
   loadCart();
+  loadWishlist();
   loadReviews();
   loadProducts();
   setupCategories();
   setupEventListeners();
   updateCartUI();
+  updateWishlistUI();
 }
 
 // Load products (simulating JSON fetch)
@@ -310,6 +313,11 @@ function renderStars(rating, className = "star") {
   return stars;
 }
 
+// Check if product is in wishlist
+function isInWishlist(productId) {
+  return wishlist.some((item) => item.id === productId);
+}
+
 // Render products
 function renderProducts() {
   const grid = document.getElementById("productsGrid");
@@ -333,6 +341,13 @@ function renderProducts() {
                     <div class="product-image-container" onclick="openProductModal(${
                       product.id
                     })">
+                        <button class="wishlist-icon ${
+                          isInWishlist(product.id) ? "active" : ""
+                        }" onclick="event.stopPropagation(); toggleWishlistItem(${
+        product.id
+      })">
+                            ${isInWishlist(product.id) ? "❤️" : "🤍"}
+                        </button>
                         <img src="${product.image}" alt="${
         product.name
       }" class="product-image">
@@ -363,6 +378,131 @@ function renderProducts() {
             `
     )
     .join("");
+}
+
+// Wishlist Functions
+function loadWishlist() {
+  const saved = localStorage.getItem("shopease_wishlist");
+  if (saved) {
+    wishlist = JSON.parse(saved);
+  }
+}
+
+function saveWishlist() {
+  localStorage.setItem("shopease_wishlist", JSON.stringify(wishlist));
+}
+
+function toggleWishlistItem(productId) {
+  const product = productsData.products.find((p) => p.id === productId);
+  const existingIndex = wishlist.findIndex((item) => item.id === productId);
+
+  if (existingIndex > -1) {
+    wishlist.splice(existingIndex, 1);
+  } else {
+    wishlist.push(product);
+  }
+
+  saveWishlist();
+  updateWishlistUI();
+  renderProducts();
+}
+
+function removeFromWishlist(productId) {
+  wishlist = wishlist.filter((item) => item.id !== productId);
+  saveWishlist();
+  updateWishlistUI();
+  renderProducts();
+}
+
+function clearWishlist() {
+  if (wishlist.length === 0) return;
+  
+  if (confirm("Are you sure you want to clear your wishlist?")) {
+    wishlist = [];
+    saveWishlist();
+    updateWishlistUI();
+    renderProducts();
+  }
+}
+
+function addAllToCart() {
+  if (wishlist.length === 0) return;
+
+  wishlist.forEach((product) => {
+    const existingItem = cart.find((item) => item.id === product.id);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      cart.push({ ...product, quantity: 1 });
+    }
+  });
+
+  saveCart();
+  updateCartUI();
+  
+  // Show feedback
+  alert(`Added ${wishlist.length} items to cart!`);
+}
+
+function updateWishlistUI() {
+  renderWishlist();
+  updateWishlistBadge();
+}
+
+function renderWishlist() {
+  const container = document.getElementById("wishlistItems");
+  const footer = document.getElementById("wishlistFooter");
+
+  if (wishlist.length === 0) {
+    container.innerHTML = `
+      <div class="empty-wishlist">
+        <div class="empty-wishlist-icon">💝</div>
+        <div class="empty-wishlist-text">Your wishlist is empty</div>
+      </div>
+    `;
+    footer.style.display = "none";
+    return;
+  }
+
+  footer.style.display = "block";
+
+  container.innerHTML = wishlist
+    .map(
+      (item) => `
+        <div class="wishlist-item">
+          <img src="${item.image}" alt="${
+        item.name
+      }" class="wishlist-item-image" onclick="openProductModal(${item.id})">
+          <div class="wishlist-item-details">
+            <div class="wishlist-item-category">${item.category}</div>
+            <div class="wishlist-item-name" onclick="openProductModal(${
+              item.id
+            })">${item.name}</div>
+            <div class="wishlist-item-price">${formatPrice(item.price)}</div>
+            <div class="wishlist-item-actions">
+              <button class="wishlist-add-to-cart-btn" onclick="addToCart(${
+                item.id
+              })">Add to Cart</button>
+              <button class="wishlist-remove-btn" onclick="removeFromWishlist(${
+                item.id
+              })">❌</button>
+            </div>
+          </div>
+        </div>
+      `
+    )
+    .join("");
+}
+
+function updateWishlistBadge() {
+  document.getElementById("wishlistBadge").textContent = wishlist.length;
+}
+
+function toggleWishlist() {
+  const wishlistSection = document.getElementById("wishlistSection");
+  const overlay = document.getElementById("wishlistOverlay");
+  wishlistSection.classList.toggle("active");
+  overlay.classList.toggle("active");
 }
 
 // Add to cart
@@ -414,43 +554,39 @@ function renderCart() {
 
   if (cart.length === 0) {
     container.innerHTML = `
-                    <div class="empty-cart">
-                        <div class="empty-cart-icon">🛍️</div>
-                        <div class="empty-cart-text">Your cart is empty</div>
-                    </div>
-                `;
+      <div class="empty-cart">
+        <div class="empty-cart-icon">🛍️</div>
+        <div class="empty-cart-text">Your cart is empty</div>
+      </div>
+    `;
     return;
   }
 
   container.innerHTML = cart
     .map(
       (item) => `
-                <div class="cart-item">
-                    <img src="${item.image}" alt="${
+        <div class="cart-item">
+          <img src="${item.image}" alt="${
         item.name
       }" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-price">${formatPrice(
-                          item.price
-                        )}</div>
-                        <div class="quantity-controls">
-                            <button class="qty-btn" onclick="updateQuantity(${
-                              item.id
-                            }, -1)">−</button>
-                            <span class="quantity-display">${
-                              item.quantity
-                            }</span>
-                            <button class="qty-btn" onclick="updateQuantity(${
-                              item.id
-                            }, 1)">+</button>
-                            <button class="remove-item" onclick="removeFromCart(${
-                              item.id
-                            })">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            `
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">${formatPrice(item.price)}</div>
+            <div class="quantity-controls">
+              <button class="qty-btn" onclick="updateQuantity(${
+                item.id
+              }, -1)">−</button>
+              <span class="quantity-display">${item.quantity}</span>
+              <button class="qty-btn" onclick="updateQuantity(${
+                item.id
+              }, 1)">+</button>
+              <button class="remove-item" onclick="removeFromCart(${
+                item.id
+              })">Remove</button>
+            </div>
+          </div>
+        </div>
+      `
     )
     .join("");
 }
@@ -525,18 +661,15 @@ function renderReviews(productId) {
   return productReviews
     .map(
       (review) => `
-                <div class="review-item">
-                    <div class="review-header">
-                        <span class="reviewer-name">${review.name}</span>
-                        <span class="review-date">${review.date}</span>
-                    </div>
-                    <div class="review-stars">${renderStars(
-                      review.rating,
-                      "star"
-                    )}</div>
-                    <p class="review-text">${review.text}</p>
-                </div>
-            `
+        <div class="review-item">
+          <div class="review-header">
+            <span class="reviewer-name">${review.name}</span>
+            <span class="review-date">${review.date}</span>
+          </div>
+          <div class="review-stars">${renderStars(review.rating, "star")}</div>
+          <p class="review-text">${review.text}</p>
+        </div>
+      `
     )
     .join("");
 }
@@ -615,99 +748,98 @@ function openProductModal(productId) {
   const productReviews = reviews[productId] || [];
   const avgRating = calculateAverageRating(productId);
   const totalReviews = product.reviewCount + productReviews.length;
+  const inWishlist = isInWishlist(productId);
 
   const modalContent = document.getElementById("modalContent");
   modalContent.innerHTML = `
-                <div class="modal-image-section">
-                    <img src="${product.image}" alt="${
+    <div class="modal-image-section">
+      <img src="${product.image}" alt="${
     product.name
   }" class="modal-main-image">
-                </div>
-                <div class="modal-info-section">
-                    <div class="modal-category">${product.category}</div>
-                    <h2 class="modal-product-name">${product.name}</h2>
-                    <div class="modal-rating">
-                        <div class="modal-stars">${renderStars(
-                          avgRating,
-                          "star"
-                        )}</div>
-                        <span class="modal-rating-text">${avgRating.toFixed(
-                          1
-                        )}</span>
-                        <span class="modal-rating-count">(${totalReviews} reviews)</span>
-                    </div>
-                    <div class="modal-price">${formatPrice(product.price)}</div>
-                    <p class="modal-description">${product.description}</p>
-                    <div class="modal-features">
-                        <h3>Features</h3>
-                        <ul>
-                            ${product.features
-                              .map((feature) => `<li>${feature}</li>`)
-                              .join("")}
-                        </ul>
-                    </div>
-                    <div class="modal-quantity-section">
-                        <span class="modal-quantity-label">Quantity:</span>
-                        <div class="modal-quantity-controls">
-                            <button class="modal-qty-btn" onclick="updateModalQuantity(-1)">−</button>
-                            <span class="modal-quantity-value" id="modalQuantityValue">1</span>
-                            <button class="modal-qty-btn" onclick="updateModalQuantity(1)">+</button>
-                        </div>
-                    </div>
-                    <button class="modal-add-to-cart" onclick="addToCartFromModal(${
-                      product.id
-                    })">
-                        Add to Cart
-                    </button>
-                    
-                    <div class="reviews-section">
-                        <div class="reviews-header">
-                            <h3>Customer Reviews</h3>
-                            <button class="add-review-btn" onclick="toggleReviewForm(${
-                              product.id
-                            })">Write a Review</button>
-                        </div>
-                        
-                        <div class="review-form" id="reviewForm-${product.id}">
-                            <div class="form-group">
-                                <label>Your Rating</label>
-                                <div class="star-rating-input" id="starRatingInput">
-                                    ${[1, 2, 3, 4, 5]
-                                      .map(
-                                        (i) =>
-                                          `<span class="star-input" onclick="setRating(${i})">★</span>`
-                                      )
-                                      .join("")}
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Your Name</label>
-                                <input type="text" id="reviewerName-${
-                                  product.id
-                                }" placeholder="Enter your name" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Your Review</label>
-                                <textarea id="reviewText-${
-                                  product.id
-                                }" placeholder="Share your experience with this product" required></textarea>
-                            </div>
-                            <div class="form-actions">
-                                <button class="submit-review-btn" onclick="submitReview(${
-                                  product.id
-                                })">Submit Review</button>
-                                <button class="cancel-review-btn" onclick="toggleReviewForm(${
-                                  product.id
-                                })">Cancel</button>
-                            </div>
-                        </div>
-                        
-                        <div id="reviewsList-${product.id}">
-                            ${renderReviews(productId)}
-                        </div>
-                    </div>
-                </div>
-            `;
+    </div>
+    <div class="modal-info-section">
+      <div class="modal-category">${product.category}</div>
+      <h2 class="modal-product-name">${product.name}</h2>
+      <div class="modal-rating">
+        <div class="modal-stars">${renderStars(avgRating, "star")}</div>
+        <span class="modal-rating-text">${avgRating.toFixed(1)}</span>
+        <span class="modal-rating-count">(${totalReviews} reviews)</span>
+      </div>
+      <div class="modal-price">${formatPrice(product.price)}</div>
+      <p class="modal-description">${product.description}</p>
+      <div class="modal-features">
+        <h3>Features</h3>
+        <ul>
+          ${product.features.map((feature) => `<li>${feature}</li>`).join("")}
+        </ul>
+      </div>
+      <div class="modal-quantity-section">
+        <span class="modal-quantity-label">Quantity:</span>
+        <div class="modal-quantity-controls">
+          <button class="modal-qty-btn" onclick="updateModalQuantity(-1)">−</button>
+          <span class="modal-quantity-value" id="modalQuantityValue">1</span>
+          <button class="modal-qty-btn" onclick="updateModalQuantity(1)">+</button>
+        </div>
+      </div>
+      <button class="modal-wishlist-btn ${
+        inWishlist ? "in-wishlist" : ""
+      }" onclick="toggleWishlistItem(${product.id})">
+        ${inWishlist ? "❤️ Remove from Wishlist" : "🤍 Add to Wishlist"}
+      </button>
+      <button class="modal-add-to-cart" onclick="addToCartFromModal(${
+        product.id
+      })">
+        Add to Cart
+      </button>
+      
+      <div class="reviews-section">
+        <div class="reviews-header">
+          <h3>Customer Reviews</h3>
+          <button class="add-review-btn" onclick="toggleReviewForm(${
+            product.id
+          })">Write a Review</button>
+        </div>
+        
+        <div class="review-form" id="reviewForm-${product.id}">
+          <div class="form-group">
+            <label>Your Rating</label>
+            <div class="star-rating-input" id="starRatingInput">
+              ${[1, 2, 3, 4, 5]
+                .map(
+                  (i) =>
+                    `<span class="star-input" onclick="setRating(${i})">★</span>`
+                )
+                .join("")}
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="reviewerName-${
+              product.id
+            }" placeholder="Enter your name" required>
+          </div>
+          <div class="form-group">
+            <label>Your Review</label>
+            <textarea id="reviewText-${
+              product.id
+            }" placeholder="Share your experience with this product" required></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="submit-review-btn" onclick="submitReview(${
+              product.id
+            })">Submit Review</button>
+            <button class="cancel-review-btn" onclick="toggleReviewForm(${
+              product.id
+            })">Cancel</button>
+          </div>
+        </div>
+        
+        <div id="reviewsList-${product.id}">
+          ${renderReviews(productId)}
+        </div>
+      </div>
+    </div>
+  `;
 
   document.getElementById("productModal").classList.add("active");
   document.body.style.overflow = "hidden";
