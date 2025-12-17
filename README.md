@@ -17,6 +17,7 @@ A modern, responsive e-commerce product gallery built with vanilla HTML, CSS, an
 ### Enhanced Features
 
 - ⭐ **Product Ratings & Reviews** - View and write customer reviews with star ratings
+- ❤️ **Wishlist Functionality** - Save favorite items for later with persistent storage
 - 🔍 **Live Search** - Filter products by name in real-time 
 - 🏷️ **Category Filters** - Browse by Home Decor, Accessories, Kitchenware, or Home Textiles
 - 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
@@ -80,6 +81,7 @@ That's it! No npm install, no build process needed. 🎉
 - Click **category buttons** to filter by type
 - **Click on any product image or name** to view detailed information in a modal
 - View **star ratings** and **review counts** on each product card
+- Click the **heart icon** on any product to add/remove from wishlist
 
 ### Product Details & Reviews
 
@@ -104,6 +106,20 @@ That's it! No npm install, no build process needed. 🎉
 4. Click **"Remove"** to delete items
 5. View the **dynamic total price** in KSh
 6. Your cart persists even after closing the browser!
+
+### Wishlist
+
+1. Click the **heart icon** (🤍) on any product card to add to wishlist
+2. The heart turns **red** (❤️) when item is in wishlist
+3. Click the **"Wishlist"** button in the header to view your saved items
+4. In the wishlist drawer:
+   - Click product **image or name** to view details
+   - Click **"Add to Cart"** to move item to shopping cart
+   - Click **❌** to remove from wishlist
+   - Use **"Add All to Cart"** to add all wishlist items at once
+   - Use **"Clear Wishlist"** to remove all items (with confirmation)
+5. Add/remove items from wishlist in the **product detail modal**
+6. Your wishlist persists even after closing the browser!
 
 ### Product Management
 
@@ -191,7 +207,7 @@ New categories are automatically detected and added to the filter buttons when y
 | Primary Blue | `#3498db` | Buttons, links, active states   |
 | Dark Grey    | `#2c3e50` | Header background               |
 | Green        | `#27ae60` | Prices, checkout button         |
-| Red          | `#e74c3c` | Cart badge, alerts              |
+| Red          | `#e74c3c` | Wishlist, cart badge, alerts    |
 | Light Grey   | `#f8f9fa` | Page background                 |
 | Gold         | `#f39c12` | Star ratings                    |
 
@@ -201,18 +217,20 @@ New categories are automatically detected and added to the filter buttons when y
 
 - **HTML5** - Semantic markup with modal structure
 - **CSS3** - Grid, Flexbox, animations, gradients, modal styling
-- **JavaScript (ES6+)** - Cart logic, reviews system, modal interactions, DOM manipulation
-- **LocalStorage API** - Data persistence for cart and reviews
+- **JavaScript (ES6+)** - Cart logic, wishlist management, reviews system, modal interactions, DOM manipulation
+- **LocalStorage API** - Data persistence for cart, wishlist, and reviews
 
 ### Key Features Implementation
 
 - **Product Modal**: Click-triggered overlay with detailed product information
+- **Wishlist System**: Heart icons on products with toggle functionality and persistent storage
 - **Star Rating System**: Visual 5-star display with half-star support
 - **Review Management**: Complete CRUD operations for customer reviews
 - **Average Rating Calculation**: Dynamic computation combining base ratings and user reviews
-- **Smooth Animations**: CSS keyframes for modal slide-in effect
-- **Event Handling**: Click events on product cards, rating stars, and form controls
+- **Smooth Animations**: CSS keyframes for modal slide-in, heart beat effect
+- **Event Handling**: Click events on product cards, rating stars, wishlist hearts, and form controls
 - **Quantity Control**: In-modal and in-cart quantity selectors
+- **Side Drawers**: Cart and wishlist slide-in panels with overlay
 - **Responsive Modal**: Adapts layout for mobile and desktop views
 
 ### Browser Support
@@ -225,7 +243,7 @@ New categories are automatically detected and added to the filter buttons when y
 ### Performance
 
 - No external dependencies
-- Lightweight (~35KB total including reviews system)
+- Lightweight (~40KB total including reviews and wishlist system)
 - Fast initial load
 - Smooth 60fps animations
 - Optimized modal rendering
@@ -242,6 +260,19 @@ New categories are automatically detected and added to the filter buttons when y
   quantity: 2,
   // ... other product properties
 }
+```
+
+**Wishlist Data**: Stored in `localStorage` with key `shopease_wishlist`
+```javascript
+[
+  {
+    id: 1,
+    name: "Product Name",
+    price: 1200,
+    category: "Home Decor",
+    // ... other product properties
+  }
+]
 ```
 
 **Reviews Data**: Stored in `localStorage` with key `shopease_reviews`
@@ -266,7 +297,7 @@ New categories are automatically detected and added to the filter buttons when y
 
 - [x] ~~Add product detail modal~~
 - [x] ~~Implement product ratings/reviews~~
-- [ ] Add wishlist functionality
+- [x] ~~Add wishlist functionality~~
 - [ ] Multiple image galleries per product
 - [ ] Price sorting (low to high, high to low)
 - [ ] Stock availability tracking
@@ -278,6 +309,8 @@ New categories are automatically detected and added to the filter buttons when y
 - [ ] Review voting (helpful/not helpful)
 - [ ] Image upload for reviews
 - [ ] Filter by rating
+- [ ] Share wishlist functionality
+- [ ] Wishlist item notes/comments
 
 ## 📄 License
 
@@ -327,6 +360,10 @@ This project demonstrates:
 - ✅ CRUD operations (Create, Read for reviews)
 - ✅ State management in vanilla JavaScript
 - ✅ Clean code organization and structure
+- ✅ Wishlist functionality with toggle states
+- ✅ Badge counters and real-time UI updates
+- ✅ Side drawer/panel implementations
+- ✅ Animation and transition effects
 
 ---
 
