@@ -7,6 +7,43 @@
     <title>ShopEase - Product Gallery</title>
   </head>
   <body>
+    <!-- Image Zoom Modal -->
+    <div
+      class="image-zoom-overlay"
+      id="imageZoomOverlay"
+      onclick="closeImageZoom(event)"
+    >
+      <div class="image-zoom-container">
+        <button class="zoom-close" onclick="closeImageZoom(event)">
+          &times;
+        </button>
+        <div class="zoom-navigation">
+          <button
+            class="zoom-nav-btn"
+            id="zoomPrevBtn"
+            onclick="event.stopPropagation(); navigateZoomImage(-1)"
+          >
+            ‹
+          </button>
+          <button
+            class="zoom-nav-btn"
+            id="zoomNextBtn"
+            onclick="event.stopPropagation(); navigateZoomImage(1)"
+          >
+            ›
+          </button>
+        </div>
+        <img
+          src=""
+          alt="Zoomed Product"
+          class="zoomed-image"
+          id="zoomedImage"
+          onclick="event.stopPropagation()"
+        />
+        <div class="zoom-counter" id="zoomCounter">1 / 1</div>
+      </div>
+    </div>
+
     <!-- Product Detail Modal -->
     <div
       class="modal-overlay"
