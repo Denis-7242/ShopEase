@@ -977,7 +977,7 @@ header {
 
 .cancel-review-btn:hover {
   background-color: #d0d0d0;
-}/* Add these styles to the end of your style.css file */
+}
 
 /* Wishlist Button in Header */
 .header-actions {
@@ -1369,7 +1369,6 @@ header {
     flex-wrap: wrap;
   }
 }
-/* Add these styles to your style.css file */
 
 /* Image Gallery in Modal */
 .modal-image-section {
