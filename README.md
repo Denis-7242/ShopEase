@@ -319,7 +319,7 @@ New categories are automatically detected and added to the filter buttons when y
 - [x] ~~Implement product ratings/reviews~~
 - [x] ~~Add wishlist functionality~~
 - [x] ~~Multiple image galleries per product~~
-- [ ] Price sorting (low to high, high to low)
+- [ ] Price sorting (low to high, high to low) //not yet finished
 - [ ] Stock availability tracking
 - [ ] Checkout process with M-Pesa integration
 - [ ] Order history
